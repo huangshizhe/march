@@ -4,6 +4,7 @@ from dynamic_reconfigure.client import Client
 from march_shared_resources.msg import GaitActionGoal
 from interpolate_pid_values import interpolate
 
+
 class DynamicPIDReconfigurer:
     def __init__(self, gait_name=None, joint_list=None):
         self._gait_name = gait_name
