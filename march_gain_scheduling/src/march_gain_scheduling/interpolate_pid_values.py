@@ -4,16 +4,20 @@ import numpy as np
 import rospy
 import string
 
-current_gains = [1,1,1, 2,2,2, 3,3,3, 4,4,4, 5,5,5, 6,6,6, 7,7,7, 8,8,8]
-needed_gains = [2,2,2, 3,3,3, 4,4,4, 5,5,5, 6,6,6, 7,7,7, 8,8,8, 9,9,9]
 
-def interpolate(needed_gains, current_gains):
-    for i in range(24):
-        if current_gains[i] != needed_gains[i]:
-            current_gains[i] = current_gains[i] + 0.5
+def interpolate(current_gains, needed_gains, gradient, delta_t):
+    if len(current_gains) != len(needed_gains):
+        rospy.logerr("needed_gains and current_gains not equal length")
+        return current_gains
+    next_gains = [0] * len(current_gains)
+    for i in range(len(current_gains)):
+        if current_gains[i] > needed_gains[i]:
+            next_gains[i] = current_gains[i] - gradient * delta_t
+            if next_gains[i] < needed_gains[i]:
+                next_gains[i] = needed_gains[i]
+        else:
+            next_gains[i] = current_gains[i] + gradient * delta_t
+            if next_gains[i] > needed_gains[i]:
+                next_gains[i] = needed_gains[i]
 
-    return [current_gains]
-
-print(interpolate(current_gains,needed_gains))
-
-
+    return next_gains
