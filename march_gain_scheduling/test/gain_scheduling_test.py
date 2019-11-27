@@ -21,9 +21,14 @@ class GainSchedulingTest(unittest.TestCase):
         self.gait_action_goal.current_subgait = self.subgait
         self.pub.publish(self.gait_action_goal)
 
-    def test_empty_object(self):
+    def test_empty_object_for_joint_list(self):
         dynamic_pid_reconfigurer = DynamicPIDReconfigurer()
         self.assertEqual(dynamic_pid_reconfigurer._joint_list, [], "empty object=empty joint list")
+
+    def test_empty_object_for_linearization(self):
+        dynamic_pid_reconfigurer = DynamicPIDReconfigurer()
+        lin = dynamic_pid_reconfigurer._linearize
+        self.assertEqual(rospy.get_param("/linearize_gain_scheduling"), lin, "linearize param is set correctly")
 
 
 if __name__ == '__main__':

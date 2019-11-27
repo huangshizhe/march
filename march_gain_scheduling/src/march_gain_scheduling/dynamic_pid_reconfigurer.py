@@ -10,6 +10,7 @@ class DynamicPIDReconfigurer:
     def __init__(self, gait_name="no_gait", joint_list=None):
         self._gait_name = gait_name
         self._clients = []
+        self._linearize = False
         if joint_list is None:
             self._joint_list = []
         elif not isinstance(joint_list, list):
