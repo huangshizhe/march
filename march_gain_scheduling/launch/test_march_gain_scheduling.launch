@@ -1,0 +1,4 @@
+<launch>
+  <param name="string"  value="mystring" />
+  <test test-name="test_mynode" pkg="mypkg" type="test_mynode" />
+</launch>
