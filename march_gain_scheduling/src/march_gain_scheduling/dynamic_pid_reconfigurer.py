@@ -3,17 +3,24 @@ import rospy
 from dynamic_reconfigure.client import Client
 from march_shared_resources.msg import GaitActionGoal
 from interpolate_pid_values import interpolate
+from .dynamic_pid_reconfigurer_errors import InvalidJointListError
 
 
 class DynamicPIDReconfigurer:
-    def __init__(self, gait_name=None, joint_list=None):
+    def __init__(self, gait_name="no_gait", joint_list=None):
         self._gait_name = gait_name
-        self._joint_list = joint_list
         self._clients = []
+        if joint_list is None:
+            self._joint_list = []
+        elif not isinstance(joint_list, list):
+            raise InvalidJointListError("joint list not of type list")
+        else:
+            self._joint_list = joint_list
         for i in range(len(self._joint_list)):
             self._clients.append(Client("/march/controller/trajectory/gains/" + self._joint_list[i], timeout=30))
         rospy.Subscriber("/march/gait/schedule/goal", GaitActionGoal, callback=self.gait_selection_callback)
-        self._linearize = rospy.get_param("/linearize_gain_scheduling")
+        if rospy.has_param("/linearize_gain_scheduling"):
+            self._linearize = rospy.get_param("/linearize_gain_scheduling")
 
     def gait_selection_callback(self, data):
         rospy.logdebug("This is the gait name: %s", data.goal.current_subgait.gait_type)

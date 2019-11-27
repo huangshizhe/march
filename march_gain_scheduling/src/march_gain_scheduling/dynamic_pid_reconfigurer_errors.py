@@ -1,0 +1,2 @@
+class InvalidJointListError(Exception):
+    pass
