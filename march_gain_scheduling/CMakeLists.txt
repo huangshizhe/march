@@ -6,7 +6,6 @@ find_package(catkin REQUIRED COMPONENTS
     march_shared_resources
     roslint
     rospy
-    rostest
     std_msgs
 )
 
@@ -33,3 +32,8 @@ endif()
 catkin_install_python(PROGRAMS scripts/${PROJECT_NAME}_node
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+
+if(CATKIN_ENABLE_TESTING)
+    find_package(rostest REQUIRED)
+    add_rostest(test/launch/test_march_gain_scheduling.test)
+endif()

@@ -33,4 +33,4 @@ class GainSchedulingTest(unittest.TestCase):
 
 if __name__ == '__main__':
     import rostest
-    rostest.unitrun(PKG, 'test_gain_scheduling', GainSchedulingTest)
+    rostest.rosrun(PKG, 'test_gain_scheduling', GainSchedulingTest)
