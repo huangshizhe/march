@@ -26,14 +26,11 @@ install(DIRECTORY config launch
     )
 
 if(CATKIN_ENABLE_TESTING)
+    find_package(rostest REQUIRED)
     catkin_add_nosetests(test/one_step_linear_interpolation_test.py)
+    add_rostest(test/launch/test_march_gain_scheduling.test)
 endif()
 
 catkin_install_python(PROGRAMS scripts/${PROJECT_NAME}_node
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
-
-if(CATKIN_ENABLE_TESTING)
-    find_package(rostest REQUIRED)
-    add_rostest(test/launch/test_march_gain_scheduling.test)
-endif()
