@@ -31,7 +31,7 @@ class GainSchedulingTest(unittest.TestCase):
     #     self.assertEqual(rospy.get_param("/linearize_gain_scheduling"), lin, "linearize param is set correctly")
 
     def test_subscription(self):
-        pub = rospy.publisher("/march/gait/schedule/goal", GaitActionGoal, queue_size=1)
+        pub = rospy.Publisher('/march/gait/schedule/goal', GaitActionGoal, queue_size=1)
         end_time = rospy.get_rostime() + rospy.Duration(5)
         while pub.get_num_connections() == 0 and rospy.get_rostime() < end_time:
             rospy.sleep(0.1)

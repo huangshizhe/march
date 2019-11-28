@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import rospy
 from dynamic_reconfigure.client import Client
 from march_shared_resources.msg import GaitActionGoal
@@ -19,7 +18,9 @@ class DynamicPIDReconfigurer:
             self._joint_list = joint_list
         for i in range(len(self._joint_list)):
             self._clients.append(Client("/march/controller/trajectory/gains/" + self._joint_list[i], timeout=30))
-        rospy.Subscriber("/march/gait/schedule/goal", GaitActionGoal, callback=self.gait_selection_callback)
+        self._gait_sub = rospy.Subscriber("/march/gait/schedule/goal",
+                                          GaitActionGoal,
+                                          callback=self.gait_selection_callback)
         if rospy.has_param("/linearize_gain_scheduling"):
             self._linearize = rospy.get_param("/linearize_gain_scheduling")
 
