@@ -52,7 +52,7 @@ class DynamicPIDReconfigurer:
                                                            "d": d_value})
                     rospy.logdebug("nonlinear Config set to {0}, {1}, {2}".format(p_value, i_value, d_value))
 
-    # Method that pulls the PID values from the gains_per_gait_type.yaml config file
+    # Method that pulls the PID values from the gains_per_gait_type.yaml test file
     def look_up_table(self, i):
         if rospy.has_param("~gait_types/" + self._gait_name):
             gains = rospy.get_param("~gait_types/" + self._gait_name + "/" + self._joint_list[i])
