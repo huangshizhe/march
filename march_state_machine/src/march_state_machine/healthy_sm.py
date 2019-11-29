@@ -18,6 +18,9 @@ from march_state_machine import rough_terrain_high_step_sm
 from march_state_machine import rough_terrain_middle_steps_sm
 from march_state_machine import ramp_door_slope_up_sm
 from march_state_machine import stairs_sm
+from march_state_machine import joint_test_both_legs_sm
+from march_state_machine import joint_test_left_leg_sm
+from march_state_machine import joint_test_right_leg_sm
 from march_state_machine.states.idle_state import IdleState
 from march_state_machine.states.gait_state import GaitState
 from std_srvs.srv import Empty, EmptyRequest
@@ -110,6 +113,15 @@ def create():
         smach.StateMachine.add('GAIT RD SLOPE UP', ramp_door_slope_up_sm.create(),  # RD stands for Ramp and Door
                                transitions={'succeeded': 'STANDING', 'failed': 'UNKNOWN'})
 
+        smach.StateMachine.add('GAIT JOINT TEST BOTH LEGS', joint_test_both_legs_sm.create(),
+                               transitions={'succeeded': 'STANDING', 'failed': 'UNKNOWN'})
+
+        smach.StateMachine.add('GAIT JOINT TEST LEFT LEG', joint_test_left_leg_sm.create(),
+                               transitions={'succeeded': 'STANDING', 'failed': 'UNKNOWN'})
+
+        smach.StateMachine.add('GAIT JOINT TEST RIGHT LEG', joint_test_right_leg_sm.create(),
+                               transitions={'succeeded': 'STANDING', 'failed': 'UNKNOWN'})
+
         # Idle states
         smach.StateMachine.add('SITTING', IdleState(outcomes=['gait_stand', 'preempted']),
                                transitions={'gait_stand': 'GAIT STAND'})
@@ -124,6 +136,8 @@ def create():
                                                                'gait_walk_small', 'gait_rough_terrain_high_step',
                                                                'gait_rough_terrain_middle_steps',
                                                                'gait_ramp_door_slope_up',
+                                                               'gait_joint_test_both_legs', 'gait_joint_test_left_leg',
+                                                               'gait_joint_test_right_leg',
                                                                'preempted']),
                                transitions={'gait_sit': 'GAIT SIT', 'gait_walk': 'GAIT WALK',
                                             'gait_single_step_small': 'GAIT SINGLE STEP SMALL',
@@ -139,6 +153,9 @@ def create():
                                             'gait_walk_small': 'GAIT WALK SMALL',
                                             'gait_rough_terrain_high_step': 'GAIT RT HIGH STEP',
                                             'gait_rough_terrain_middle_steps': 'GAIT RT MIDDLE STEPS',
-                                            'gait_ramp_door_slope_up': 'GAIT RD SLOPE UP'})
+                                            'gait_ramp_door_slope_up': 'GAIT RD SLOPE UP',
+                                            'gait_joint_test_both_legs': 'GAIT JOINT TEST BOTH LEGS',
+                                            'gait_joint_test_left_leg': 'GAIT JOINT TEST LEFT LEG',
+                                            'gait_joint_test_right_leg': 'GAIT JOINT TEST RIGHT LEG'})
 
     return sm_healthy
