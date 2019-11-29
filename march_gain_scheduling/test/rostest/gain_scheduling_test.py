@@ -42,10 +42,10 @@ class GainSchedulingTest(unittest.TestCase):
         # while pub.get_num_connections() == 0 and rospy.get_rostime() < end_time:
         #     rospy.sleep(0.1)
         # self.assertEqual(pub.get_num_connections(), 1, "No connections")
-        self.assertEquals(1, 1, "1!=1")
+        self.assertTrue(True)
 
 
 if __name__ == '__main__':
     import rostest
-    #rospy.init_node("gainschedulingtest")
+    rospy.init_node("gainschedulingtest")
     rostest.rosrun(PKG, 'test_gain_scheduling', GainSchedulingTest)

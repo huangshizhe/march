@@ -2,7 +2,7 @@
   <param name="linearize_gain_scheduling" type="bool" value="true"/>
   <param name="linear_slope" type="double" value="1"/>
   <param name="linear_time_interval" type="double" value="10"/>
-  <test test-name="test_gain_scheduling" pkg="march_gain_scheduling" type="test/rostest/gain_scheduling_test.py" />
+  <test test-name="test_gain_scheduling" pkg="march_gain_scheduling" type="gain_scheduling_test.py" />
   <node name="gain_scheduling_node" pkg="march_gain_scheduling" type="march_gain_scheduling_node" output="screen">
     <rosparam command="load" file="$(find march_gain_scheduling)/config/test/gains_per_gait_type.yaml"/>
   </node>
