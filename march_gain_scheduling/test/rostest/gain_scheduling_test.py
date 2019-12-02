@@ -38,8 +38,8 @@ class GainSchedulingTest(unittest.TestCase):
     #     lin = dynamic_pid_reconfigurer._linearize
     #     self.assertEqual(rospy.get_param("/linearize_gain_scheduling"), lin, "linearize param is set correctly")
 
-    # def setUp(self):
-    #
+    def setUp(self):
+        return True
 
     def test_subscription(self):
         pub = rospy.Publisher('/march/gait/schedule/goal', GaitActionGoal, queue_size=1)
@@ -50,6 +50,7 @@ class GainSchedulingTest(unittest.TestCase):
 
     def test_reconfigured_pid_values(self):
         self.assertTrue(True)
+
 
 if __name__ == '__main__':
     import rostest
