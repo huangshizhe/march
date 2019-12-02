@@ -19,6 +19,9 @@ from . import stand_sm
 from . import tilted_path_sm
 from . import walk_sm
 from . import walk_small_sm
+from . import joint_test_both_legs_sm
+from . import joint_test_left_leg_sm
+from . import joint_test_right_leg_sm
 from .states.gait_state import GaitState
 from .states.idle_state import IdleState
 
