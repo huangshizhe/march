@@ -10,6 +10,10 @@ find_package(catkin REQUIRED COMPONENTS
 
 catkin_python_setup()
 
+generate_dynamic_reconfigure_options(
+    test/config/gain_list.cfg
+)
+
 catkin_package(
     CATKIN_DEPENDS
     march_shared_resources
@@ -28,5 +32,5 @@ catkin_install_python(PROGRAMS scripts/${PROJECT_NAME}_node
 if(CATKIN_ENABLE_TESTING)
     find_package(rostest REQUIRED)
     catkin_add_nosetests(test/nosetest/one_step_linear_interpolation_test.py)
-    add_rostest(test/launch/test_march_gain_scheduling.test)
+    add_rostest(test/launch/test_march_gain_scheduling.launch)
 endif()

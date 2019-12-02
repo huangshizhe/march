@@ -5,9 +5,14 @@ import rospy
 from march_shared_resources.msg import GaitActionGoal, GaitGoal
 from march_gain_scheduling.dynamic_pid_reconfigurer import DynamicPIDReconfigurer
 from dynamic_reconfigure.server import Server
-from gain_list.cfg import gain_listConfig
+from march_gain_scheduling.cfg import GainListConfig
 
 PKG = 'march_gain_scheduling'
+
+
+def callback(config, level):
+    rospy.loginfo("""Reconfiugre Request: {p}, {i}, {d}""".format(**config))
+    return config
 
 
 class GainSchedulingTest(unittest.TestCase):
@@ -32,20 +37,23 @@ class GainSchedulingTest(unittest.TestCase):
     #     dynamic_pid_reconfigurer = DynamicPIDReconfigurer()
     #     lin = dynamic_pid_reconfigurer._linearize
     #     self.assertEqual(rospy.get_param("/linearize_gain_scheduling"), lin, "linearize param is set correctly")
+
     # def setUp(self):
-    #     srv = Server(gain_listConfig)
-    #     rospy.spin()
+    #
 
     def test_subscription(self):
-        # pub = rospy.Publisher('/march/gait/schedule/goal', GaitActionGoal, queue_size=1)
-        # end_time = rospy.get_rostime() + rospy.Duration(5)
-        # while pub.get_num_connections() == 0 and rospy.get_rostime() < end_time:
-        #     rospy.sleep(0.1)
-        # self.assertEqual(pub.get_num_connections(), 1, "No connections")
-        self.assertTrue(True)
+        pub = rospy.Publisher('/march/gait/schedule/goal', GaitActionGoal, queue_size=1)
+        end_time = rospy.get_rostime() + rospy.Duration(5)
+        while pub.get_num_connections() == 0 and rospy.get_rostime() < end_time:
+            rospy.sleep(0.1)
+        self.assertEqual(pub.get_num_connections(), 1, "No connections")
 
+    def test_reconfigured_pid_values(self):
+        self.assertTrue(True)
 
 if __name__ == '__main__':
     import rostest
     rospy.init_node("gainschedulingtest")
+    # The service persists between tests, be careful with your expectations after executing a test using DynReCon
+    srv = Server(GainListConfig, callback, namespace="/march/controller/trajectory/gains/test_joint1")
     rostest.rosrun(PKG, 'test_gain_scheduling', GainSchedulingTest)
