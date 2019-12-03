@@ -1,7 +1,7 @@
 gait_types: # The used gains are only for testing that the correct set of gains has been loaded.
   sit_like:
-    left_ankle: {p: 10001, i: 0, d: 10}
+    test_joint1: {p: 10001, i: 0, d: 10}
   walk_like:
-    left_ankle: {p: 10002, i: 0, d: 10}
+    test_joint1: {p: 10002, i: 0, d: 10}
   stairs_like:
-    left_ankle: {p: 10003, i: 0, d: 10}
+    test_joint1: {p: 10003, i: 0, d: 10}
