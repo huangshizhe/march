@@ -1,19 +1,16 @@
 #!/usr/bin/env python
 import unittest
+
+from dynamic_reconfigure.client import Client
 import rospy
 
-import actionlib
-
-from march_shared_resources.msg import GaitActionGoal, GaitGoal, GaitNameAction, GaitAction, Subgait
-from march_gain_scheduling.dynamic_pid_reconfigurer import DynamicPIDReconfigurer
-from dynamic_reconfigure.client import Client
-from dynamic_reconfigure.server import Server
-from march_gain_scheduling.cfg import GainListConfig
+from march_shared_resources.msg import GaitActionGoal
 
 PKG = 'march_gain_scheduling'
 
+
 def srv_callback(config, level):
-    rospy.loginfo("""Reconfigure Request: {p}, {i}, {d}""".format(**config))
+    rospy.loginfo('Reconfigure Request: {p}, {i}, {d}'.format(**config))
     return config
 
 
@@ -52,7 +49,7 @@ class GainSchedulingTest(unittest.TestCase):
         self.assertEqual(self.pub.get_num_connections(), 2, 'No connections {0}'.format(self.pub.get_num_connections()))
 
     def test_node_reconfiguration(self):
-        rospy.Subscriber("/march/gait/schedule/goal", GaitActionGoal, callback=self.gait_callback)
+        rospy.Subscriber('/march/gait/schedule/goal', GaitActionGoal, callback=self.gait_callback)
         update_message = GaitActionGoal()
         update_message.goal.current_subgait.gait_type = 'sit_like'
         self.pub.publish(update_message)

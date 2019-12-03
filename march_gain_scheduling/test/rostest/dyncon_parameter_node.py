@@ -1,7 +1,7 @@
 #!/usr/bin/env python
+from dynamic_reconfigure.server import Server
 import rospy
 
-from dynamic_reconfigure.server import Server
 from march_gain_scheduling.cfg import GainListConfig
 
 
