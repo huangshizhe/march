@@ -2,7 +2,7 @@
   <rosparam>
     /march/joint_names: [test_joint1]
   </rosparam>
-  <param name="linearize_gain_scheduling" type="bool" value="true"/>
+  <param name="linearize_gain_scheduling" type="bool" value="false"/>
   <param name="linear_slope" type="double" value="1"/>
   <param name="linear_time_interval" type="double" value="10"/>
   <node name="dyncon_server_node" pkg="march_gain_scheduling" type="dyncon_parameter_node.py" output="screen"/>
