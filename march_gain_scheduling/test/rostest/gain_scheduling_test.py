@@ -20,8 +20,8 @@ class GainSchedulingTest(unittest.TestCase):
         super(GainSchedulingTest, self).__init__(*args, **kwargs)
         self.client = Client('/march/controller/trajectory/gains/test_joint1', timeout=10)
         self.pub = rospy.Publisher('/march/gait/schedule/goal', GaitActionGoal, queue_size=1)
-        self._as = SimpleActionServer('/march/gait/schedule/goal', GaitAction, auto_start=True)
-        self.act_client = SimpleActionClient('/march/gait/schedule/goal', GaitAction)
+        self._as = SimpleActionServer('/march/gait/schedule', GaitAction, auto_start=True)
+        self.act_client = SimpleActionClient('/march/gait/schedule', GaitAction)
         # self.srv = Server(GainListConfig, srv_callback, namespace='/march/controller/trajectory/gains/test_joint1')
         self.config = None
         self.success = False
