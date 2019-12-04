@@ -1,10 +1,11 @@
 #!/usr/bin/env python
-import unittest
+import unittest, time
 
 from dynamic_reconfigure.client import Client
 import rospy
+from actionlib import SimpleActionClient, SimpleActionServer
 
-from march_shared_resources.msg import GaitActionGoal
+from march_shared_resources.msg import GaitActionGoal, GaitGoal, GaitAction
 
 PKG = 'march_gain_scheduling'
 
@@ -17,21 +18,23 @@ def srv_callback(config, level):
 class GainSchedulingTest(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super(GainSchedulingTest, self).__init__(*args, **kwargs)
-        self.client = None
+        self.client = Client('/march/controller/trajectory/gains/test_joint1', timeout=10)
+        self.pub = rospy.Publisher('/march/gait/schedule/goal', GaitActionGoal, queue_size=1)
+        self._as = SimpleActionServer('/march/gait/schedule/goal', GaitAction, auto_start=True)
+        self.act_client = SimpleActionClient('/march/gait/schedule/goal', GaitAction)
         # self.srv = Server(GainListConfig, srv_callback, namespace='/march/controller/trajectory/gains/test_joint1')
         self.config = None
+        self.success = False
 
     def setUp(self):
-        self.client = Client('/march/controller/trajectory/gains/test_joint1', timeout=10)
         self.client.update_configuration({'p': 1000, 'i': 0, 'd': 10})
-        self.pub = rospy.Publisher('/march/gait/schedule/goal', GaitActionGoal, queue_size=1)
-        # self.schedule_gait_client = actionlib.SimpleActionClient('/march/gait/schedule', GaitAction)
 
     # def tearDown(self):
-    #     self._client.close()
+    #     self.client.close()
 
     def gait_callback(self, config):
         self.config = config
+        self.success = True
 
     def test_reconfigured_pid_values(self):
         old_val = self.client.get_configuration()
@@ -50,17 +53,22 @@ class GainSchedulingTest(unittest.TestCase):
 
     def test_node_reconfiguration(self):
         rospy.Subscriber('/march/gait/schedule/goal', GaitActionGoal, callback=self.gait_callback)
-        update_message = GaitActionGoal()
-        update_message.goal.current_subgait.gait_type = 'sit_like'
-        self.pub.publish(update_message)
-        rospy.sleep(2)
+        update_message = GaitGoal()
+        update_message.current_subgait.gait_type = 'sit_like'
+        self.act_client.wait_for_server()
+        self.act_client.send_goal(update_message)
+        timeout_t = time.time() + 10.0  # 10 seconds
+        rate = rospy.Rate(10)
+        while not rospy.is_shutdown() and not self.success and time.time() < timeout_t:
+            rate.sleep()
         updated_val = self.client.get_configuration()
         self.assertEqual(updated_val['p'], 10001, 'use of the dynamic reconfigure class did not update the pid values \
-        current value is {0}, {1}, {2}'.format(updated_val['p'], self.config, update_message))
+        current value is {0}, {1}, \n{2}, \nsuccess: {3} '.format(updated_val['p'], self.config, update_message,
+                                                                  self.success))
 
 
 if __name__ == '__main__':
     import rostest
     rospy.init_node('gainschedulingtest')
-    # The service persists between tests, be careful with your expectations after executing a test using DynReCon
     rostest.rosrun(PKG, 'test_gain_scheduling', GainSchedulingTest)
+    rospy.spin()
