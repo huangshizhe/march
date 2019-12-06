@@ -40,6 +40,7 @@ class GainSchedulingTest(unittest.TestCase):
         old_val = self.client.get_configuration()
         new_val = {'p': 1001, 'i': 0, 'd': 10}
         self.client.update_configuration(new_val)
+        rospy.sleep(0.5)
         updated_val = self.client.get_configuration()
         self.assertEqual(old_val['p'] + 1, updated_val['p'], 'Client configuration did not update as expected old_val =\
         {0} and updated_val = {1}'.format(old_val['p'], updated_val['p']))

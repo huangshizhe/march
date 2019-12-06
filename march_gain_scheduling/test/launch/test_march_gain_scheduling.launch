@@ -7,7 +7,7 @@
   <param name="linear_time_interval" type="double" value="10"/>
   <node name="dyncon_server_node" pkg="march_gain_scheduling" type="dyncon_parameter_node.py" output="screen"/>
   <node name="gain_scheduling_node" pkg="march_gain_scheduling" type="march_gain_scheduling_node" output="screen">
-    <rosparam command="load" file="$(find march_gain_scheduling)/config/test/gains_per_gait_type.yaml"/>
+    <rosparam command="load" file="$(find march_gain_scheduling)/test/config/gains_per_gait_type.yaml"/>
   </node>
   <test test-name="test_gain_scheduling" pkg="march_gain_scheduling" type="gain_scheduling_test.py" />
 </launch>
