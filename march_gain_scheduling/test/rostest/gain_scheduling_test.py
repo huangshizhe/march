@@ -1,11 +1,12 @@
 #!/usr/bin/env python
-import unittest, time
+import time
+import unittest
 
+from actionlib import SimpleActionClient, SimpleActionServer
 from dynamic_reconfigure.client import Client
 import rospy
-from actionlib import SimpleActionClient, SimpleActionServer
 
-from march_shared_resources.msg import GaitActionGoal, GaitGoal, GaitAction
+from march_shared_resources.msg import GaitAction, GaitActionGoal, GaitGoal
 
 PKG = 'march_gain_scheduling'
 
