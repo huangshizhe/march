@@ -11,7 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_python_setup()
 
 generate_dynamic_reconfigure_options(
-    test/config/gain_list.cfg
+    test/config/GainList.cfg
 )
 
 catkin_package(
