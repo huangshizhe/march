@@ -32,5 +32,5 @@ catkin_install_python(PROGRAMS scripts/${PROJECT_NAME}_node
 if(CATKIN_ENABLE_TESTING)
     find_package(rostest REQUIRED)
     catkin_add_nosetests(test/nosetest/one_step_linear_interpolation_test.py)
-    add_rostest(test/launch/test_march_gain_scheduling.launch)
+    add_rostest(test/launch/test_${PROJECT_NAME}.launch)
 endif()
