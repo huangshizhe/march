@@ -89,16 +89,16 @@ class HealthyStateMachine(smach.StateMachine):
 
         # Joint performance test gait
         self.add_state('GAIT JOINT TEST BOTH LEGS', StepStateMachine('joint_test_both_legs',
-                                                                ['both_knees', 'both_hips', 'both_legs_straight',
-                                                                 'both_ankles', 'both_hips_aa']),
+                                                                     ['both_knees', 'both_hips', 'both_legs_straight',
+                                                                      'both_ankles', 'both_hips_aa']),
                        'STANDING')
         self.add_state('GAIT JOINT TEST LEFT LEG', StepStateMachine('joint_test_left_leg',
-                                                                     ['left_knee', 'left_hip', 'left_leg_straight',
-                                                                      'left_ankle', 'left_hip_aa']),
+                                                                    ['left_knee', 'left_hip', 'left_leg_straight',
+                                                                     'left_ankle', 'left_hip_aa']),
                        'STANDING')
         self.add_state('GAIT JOINT TEST RIGHT LEG', StepStateMachine('joint_test_right_leg',
-                                                                    ['right_knee', 'right_hip', 'right_leg_straight',
-                                                                     'right_ankle', 'right_hip_aa']),
+                                                                     ['right_knee', 'right_hip', 'right_leg_straight',
+                                                                      'right_ankle', 'right_hip_aa']),
                        'STANDING')
 
         self.add('SITTING', IdleState(outcomes=['gait_stand', 'preempted']),
