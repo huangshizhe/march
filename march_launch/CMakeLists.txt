@@ -16,7 +16,7 @@ install(DIRECTORY launch resource
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
-install(PROGRAMS scripts/march_git_branch_check scripts/march_rqt_software_check
+install(PROGRAMS scripts/march_git_branch_check scripts/march_rqt_software_check scripts/move_joints.py
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
