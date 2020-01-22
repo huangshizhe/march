@@ -67,6 +67,18 @@ class HealthyStateMachine(smach.StateMachine):
         self.add_state('GAIT STAIRS UP', WalkStateMachine('stairs_up'), 'STANDING')
         self.add_state('GAIT STAIRS DOWN', WalkStateMachine('stairs_down'), 'STANDING')
 
+        # Stairs gait with fixed number of steps
+        self.add_state('GAIT STAIRS UP FIXED STEPS', StepStateMachine('stairs_up', ['right_open', 'left_swing',
+                                                                                    'right_swing', 'left_swing',
+                                                                                    'right_swing', 'left_swing',
+                                                                                    'right_close']),
+                       'STANDING')
+        self.add_state('GAIT STAIRS DOWN FIXED STEPS', StepStateMachine('stairs_down', ['right_open', 'left_swing',
+                                                                                        'right_swing', 'left_swing',
+                                                                                        'right_swing', 'left_swing',
+                                                                                        'right_close']),
+                       'STANDING')
+
         # RT stands for Rough Terrain
         self.add_state('GAIT RT HIGH STEP', StepStateMachine('rough_terrain_high_step'), 'STANDING')
         self.add_state('GAIT RT MIDDLE STEPS', StepStateMachine('rough_terrain_middle_steps',
