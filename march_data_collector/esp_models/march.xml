@@ -98,10 +98,10 @@
                 <field-selection name="temperature_right_knee" source="r_temperature" />
               </output>
             </window-join>
-            <window-join name="joinWindow2">
-              <join type="inner">
+            <window-join name="joinWindow2" >
+              <join type="inner" no-regenerates='true'>
                 <conditions>
-                  <fields left="time" right="time" />
+                  <fields left="dummy_key" right="dummy_key" />
                 </conditions>
               </join>
               <output>
@@ -114,6 +114,16 @@
                 <field-selection name="rotational_velocity" source="r_rotational_velocity" />
                 <field-selection name="linear_acceleration" source="r_linear_acceleration" />
               </output>
+              <connectors>
+                <connector class="fs" name="sub" type="subscribe">
+                  <properties>
+                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>
+                    <property name="fsname">full.csv</property>
+                    <property name="fstype">csv</property>
+                    <property name="snapshot">true</property>
+                  </properties>
+                </connector>
+              </connectors>
             </window-join>
             <window-join name="joinWindow3">
               <join type="inner">
@@ -133,16 +143,6 @@
                 <field-selection name="motor_current" source="l_motor_current" />
                 <field-selection name="motor_voltage" source="l_motor_voltage" />
               </output>
-              <connectors>
-                <connector class="fs" name="sub" type="subscribe">
-                  <properties>
-                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>
-                    <property name="fsname">full.csv</property>
-                    <property name="fstype">csv</property>
-                    <property name="snapshot">true</property>
-                  </properties>
-                </connector>
-              </connectors>
             </window-join>
             <window-join name="joinWindow4">
               <join type="inner">
@@ -162,87 +162,111 @@
               <schema>
                 <fields>
                   <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
                   <field key="false" name="time" type="stamp" />
                   <field key="false" name="com_position" type="array(dbl)" />
                 </fields>
               </schema>
-              <connectors>
-                <connector class="fs" name="sub" type="subscribe">
-                  <properties>
-                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>
-                    <property name="fsname">com.csv</property>
-                    <property name="fstype">csv</property>
-                    <property name="snapshot">true</property>
-                  </properties>
-                </connector>
-              </connectors>
+<!--              <connectors>-->
+<!--                <connector class="fs" name="sub" type="subscribe">-->
+<!--                  <properties>-->
+<!--                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>-->
+<!--                    <property name="fsname">com.csv</property>-->
+<!--                    <property name="fstype">csv</property>-->
+<!--                    <property name="snapshot">true</property>-->
+<!--                  </properties>-->
+<!--                </connector>-->
+<!--              </connectors>-->
             </window-source>
+            <window-aggregate name='aggregateIMU'>
+              <schema>
+                <fields>
+                  <field name="SEQUENCE" type="int64" key="true" />
+                  <field name="dummy_key" type="int64" />
+                  <field name="time" type="stamp" />
+                  <field name="orientation" type="array(dbl)" />
+                  <field name="rotational_velocity" type="array(dbl)" />
+                  <field name="linear_acceleration" type="array(dbl)" />
+                </fields>
+              </schema>
+              <output>
+                <field-expr>ESP_aLast(dummy_key)</field-expr>
+                <field-expr>ESP_aLast(time)</field-expr>
+                <field-expr>ESP_aLast(orientation)</field-expr>
+                <field-expr>ESP_aLast(rotational_velocity)</field-expr>
+                <field-expr>ESP_aLast(linear_acceleration)</field-expr>
+              </output>
+            </window-aggregate>
             <window-source autogen-key="true" insert-only="true" name="sourceGait">
               <schema>
                 <fields>
                   <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
                   <field key="false" name="time" type="stamp" />
                   <field key="false" name="gait_name" type="string" />
                   <field key="false" name="subgait_name" type="string" />
                   <field key="false" name="version" type="string" />
                 </fields>
               </schema>
-              <connectors>
-                <connector class="fs" name="sub" type="subscribe">
-                  <properties>
-                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>
-                    <property name="fsname">gait.csv</property>
-                    <property name="fstype">csv</property>
-                    <property name="snapshot">true</property>
-                  </properties>
-                </connector>
-              </connectors>
+<!--              <connectors>-->
+<!--                <connector class="fs" name="sub" type="subscribe">-->
+<!--                  <properties>-->
+<!--                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>-->
+<!--                    <property name="fsname">gait.csv</property>-->
+<!--                    <property name="fstype">csv</property>-->
+<!--                    <property name="snapshot">true</property>-->
+<!--                  </properties>-->
+<!--                </connector>-->
+<!--              </connectors>-->
             </window-source>
             <window-source autogen-key="true" insert-only="true" name="sourceIMC">
               <schema>
                 <fields>
                   <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
                   <field key="false" name="time" type="stamp" />
                   <field key="false" name="motor_current" type="array(dbl)" />
                   <field key="false" name="motor_voltage" type="array(dbl)" />
                 </fields>
               </schema>
-              <connectors>
-                <connector class="fs" name="sub" type="subscribe">
-                  <properties>
-                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>
-                    <property name="fsname">imc.csv</property>
-                    <property name="fstype">csv</property>
-                    <property name="snapshot">true</property>
-                  </properties>
-                </connector>
-              </connectors>
+<!--              <connectors>-->
+<!--                <connector class="fs" name="sub" type="subscribe">-->
+<!--                  <properties>-->
+<!--                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>-->
+<!--                    <property name="fsname">imc.csv</property>-->
+<!--                    <property name="fstype">csv</property>-->
+<!--                    <property name="snapshot">true</property>-->
+<!--                  </properties>-->
+<!--                </connector>-->
+<!--              </connectors>-->
             </window-source>
             <window-source autogen-key="true" insert-only="true" name="sourceIMU">
               <schema>
                 <fields>
                   <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
                   <field key="false" name="time" type="stamp" />
                   <field key="false" name="orientation" type="array(dbl)" />
                   <field key="false" name="rotational_velocity" type="array(dbl)" />
                   <field key="false" name="linear_acceleration" type="array(dbl)" />
                 </fields>
               </schema>
-              <connectors>
-                <connector class="fs" name="sub" type="subscribe">
-                  <properties>
-                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>
-                    <property name="fsname">imu.csv</property>
-                    <property name="fstype">csv</property>
-                    <property name="snapshot">true</property>
-                  </properties>
-                </connector>
-              </connectors>
+<!--              <connectors>-->
+<!--                <connector class="fs" name="sub" type="subscribe">-->
+<!--                  <properties>-->
+<!--                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>-->
+<!--                    <property name="fsname">imu.csv</property>-->
+<!--                    <property name="fstype">csv</property>-->
+<!--                    <property name="snapshot">true</property>-->
+<!--                  </properties>-->
+<!--                </connector>-->
+<!--              </connectors>-->
             </window-source>
             <window-source autogen-key="true" insert-only="true" name="sourceJoint">
               <schema>
                 <fields>
                   <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
                   <field key="false" name="time" type="stamp" />
                   <field key="false" name="actual_positions" type="array(dbl)" />
                   <field key="false" name="actual_velocities" type="array(dbl)" />
@@ -250,21 +274,22 @@
                   <field key="false" name="desired_velocities" type="array(dbl)" />
                 </fields>
               </schema>
-              <connectors>
-                <connector class="fs" name="sub" type="subscribe">
-                  <properties>
-                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>
-                    <property name="fsname">joint.csv</property>
-                    <property name="fstype">csv</property>
-                    <property name="snapshot">true</property>
-                  </properties>
-                </connector>
-              </connectors>
+<!--              <connectors>-->
+<!--                <connector class="fs" name="sub" type="subscribe">-->
+<!--                  <properties>-->
+<!--                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>-->
+<!--                    <property name="fsname">joint.csv</property>-->
+<!--                    <property name="fstype">csv</property>-->
+<!--                    <property name="snapshot">true</property>-->
+<!--                  </properties>-->
+<!--                </connector>-->
+<!--              </connectors>-->
             </window-source>
             <window-source autogen-key="true" insert-only="true" name="sourceTemperature_left_ankle">
               <schema>
                 <fields>
                   <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
                   <field key="false" name="time" type="stamp" />
                   <field key="false" name="temperature" type="double" />
                 </fields>
@@ -274,25 +299,27 @@
               <schema>
                 <fields>
                   <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
                   <field key="false" name="time" type="stamp" />
                   <field key="false" name="temperature" type="double" />
                 </fields>
               </schema>
-              <connectors>
-                <connector class="fs" name="sub" type="subscribe">
-                  <properties>
-                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>
-                    <property name="fsname">tp.csv</property>
-                    <property name="fstype">csv</property>
-                    <property name="snapshot">true</property>
-                  </properties>
-                </connector>
-              </connectors>
+<!--              <connectors>-->
+<!--                <connector class="fs" name="sub" type="subscribe">-->
+<!--                  <properties>-->
+<!--                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>-->
+<!--                    <property name="fsname">tp.csv</property>-->
+<!--                    <property name="fstype">csv</property>-->
+<!--                    <property name="snapshot">true</property>-->
+<!--                  </properties>-->
+<!--                </connector>-->
+<!--              </connectors>-->
             </window-source>
             <window-source autogen-key="true" insert-only="true" name="sourceTemperature_left_hip_fe">
               <schema>
                 <fields>
                   <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
                   <field key="false" name="time" type="stamp" />
                   <field key="false" name="temperature" type="double" />
                 </fields>
@@ -302,6 +329,7 @@
               <schema>
                 <fields>
                   <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
                   <field key="false" name="time" type="stamp" />
                   <field key="false" name="temperature" type="double" />
                 </fields>
@@ -311,6 +339,7 @@
               <schema>
                 <fields>
                   <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
                   <field key="false" name="time" type="stamp" />
                   <field key="false" name="temperature" type="double" />
                 </fields>
@@ -320,6 +349,7 @@
               <schema>
                 <fields>
                   <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
                   <field key="false" name="time" type="stamp" />
                   <field key="false" name="temperature" type="double" />
                 </fields>
@@ -329,6 +359,7 @@
               <schema>
                 <fields>
                   <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
                   <field key="false" name="time" type="stamp" />
                   <field key="false" name="temperature" type="double" />
                 </fields>
@@ -338,6 +369,7 @@
               <schema>
                 <fields>
                   <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
                   <field key="false" name="time" type="stamp" />
                   <field key="false" name="temperature" type="double" />
                 </fields>
@@ -360,7 +392,8 @@
             <edge role="left" source="joinTemperature_hip" target="joinTemperature" />
             <edge role="right" source="joinTemperature_ankle_knee" target="joinTemperature" />
             <edge role="left" source="sourceJoint" target="joinWindow2" />
-            <edge role="right" source="sourceIMU" target="joinWindow2" />
+            <edge role="right" source="aggregateIMU" target="joinWindow2" />
+            <edge source="sourceIMU" target="aggregateIMU" />
             <edge role="left" source="sourceIMC" target="joinWindow3" />
             <edge role="right" source="joinWindow2" target="joinWindow3" />
             <edge role="left" source="sourceGait" target="joinWindow4" />

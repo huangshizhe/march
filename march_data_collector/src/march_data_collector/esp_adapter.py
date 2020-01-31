@@ -71,8 +71,9 @@ class ESPAdapter:
         self.configure_source('sourceIMU', '/march/imu', Imu, self.imu_callback)
 
         self.configure_source('sourceIMC', '/march/imc_states', ImcErrorState, self.imc_state_callback)
-        self.configure_source('sourceGait', '/march/gait/schedule/goal', GaitNameActionGoal, self.gait_callback)
+        # self.configure_source('sourceGait', '/march/gait/schedule/goal', GaitNameActionGoal, self.gait_callback)
         self.configure_source('sourceCom', '/march/com_marker', Marker, self.com_callback)
+
 
     def pub_err_cb_func(self, failure, code, _):
         if failure == pubsubApi.pubsubFail_APIFAIL and code == pubsubApi.pubsubCode_CLIENTEVENTSQUEUED:
@@ -120,7 +121,7 @@ class ESPAdapter:
         self.subscribers[source] = rospy.Subscriber(topic, msg_type, callback, source)
 
     def send_to_esp(self, csv, source):
-        csv = 'i, n, 1,' + csv
+        csv = 'i, n, 1, 1,' + csv
         try:
             pub, schemaptr = self.esp_publishers[source]
         except KeyError:
