@@ -2,6 +2,7 @@
 import unittest
 
 import rospy
+import rostest
 from smach import InvalidStateError, InvalidTransitionError
 
 import march_state_machine.state_machine as sm
@@ -37,5 +38,4 @@ class TestStateMachine(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    import rostest
     rostest.rosrun(PKG, 'test_state_machine', TestStateMachine)
