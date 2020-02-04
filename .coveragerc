@@ -1,0 +1,9 @@
+[report]
+include =
+    *march_data_collector*
+    *march_gain_scheduling*
+    *march_gait_selection*
+    *march_shared_classes*
+    *march_state_machine*
+omit =
+    *__init__.py
