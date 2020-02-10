@@ -98,7 +98,7 @@
 <!--                <field-selection name="temperature_right_knee" source="r_temperature" />-->
 <!--              </output>-->
 <!--            </window-join>-->
-            <window-join name="joinWindow" >
+            <window-join name="joinTemperature_left_ankle" >
               <join type="leftouter" no-regenerates='true'>
                 <conditions>
                   <fields left="dummy_key" right="dummy_key" />
@@ -106,23 +106,153 @@
               </join>
               <output>
                 <field-selection name="time" source="l_time" />
+                <field-selection name="dummy_key" source="l_dummy_key" />
                 <field-selection name="actual_positions" source="l_actual_positions" />
                 <field-selection name="actual_velocities" source="l_actual_velocities" />
                 <field-selection name="desired_positions" source="l_desired_positions" />
                 <field-selection name="desired_velocities" source="l_desired_velocities" />
-                <field-selection name="motor_current" source="r_motor_current" />
-                <field-selection name="motor_voltage" source="r_motor_voltage" />
+                <field-selection name="temperature_left_ankle" source="r_temperature" />
               </output>
-              <connectors>
-                <connector class="fs" name="sub" type="subscribe">
-                  <properties>
-                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>
-                    <property name="fsname">join.csv</property>
-                    <property name="fstype">csv</property>
-                    <property name="snapshot">true</property>
-                  </properties>
-                </connector>
-              </connectors>
+            </window-join>
+            <window-join name="joinTemperature_left_hip_aa" >
+              <join type="leftouter" no-regenerates='true'>
+                <conditions>
+                  <fields left="dummy_key" right="dummy_key" />
+                </conditions>
+              </join>
+              <output>
+                <field-selection name="time" source="l_time" />
+                <field-selection name="dummy_key" source="l_dummy_key" />
+                <field-selection name="actual_positions" source="l_actual_positions" />
+                <field-selection name="actual_velocities" source="l_actual_velocities" />
+                <field-selection name="desired_positions" source="l_desired_positions" />
+                <field-selection name="desired_velocities" source="l_desired_velocities" />
+                <field-selection name="temperature_left_ankle" source="l_temperature_left_ankle" />
+                <field-selection name="temperature_left_hip_aa" source="r_temperature" />
+              </output>
+            </window-join>
+          <window-join name="joinTemperature_left_hip_fe" >
+            <join type="leftouter" no-regenerates='true'>
+              <conditions>
+                <fields left="dummy_key" right="dummy_key" />
+              </conditions>
+            </join>
+            <output>
+              <field-selection name="time" source="l_time" />
+              <field-selection name="dummy_key" source="l_dummy_key" />
+              <field-selection name="actual_positions" source="l_actual_positions" />
+              <field-selection name="actual_velocities" source="l_actual_velocities" />
+              <field-selection name="desired_positions" source="l_desired_positions" />
+              <field-selection name="desired_velocities" source="l_desired_velocities" />
+              <field-selection name="temperature_left_ankle" source="l_temperature_left_ankle" />
+              <field-selection name="temperature_left_hip_aa" source="l_temperature_left_hip_aa" />
+              <field-selection name="temperature_left_hip_fe" source="r_temperature" />
+            </output>
+          </window-join>
+            <window-join name="joinTemperature_left_knee" >
+              <join type="leftouter" no-regenerates='true'>
+                <conditions>
+                  <fields left="dummy_key" right="dummy_key" />
+                </conditions>
+              </join>
+              <output>
+                <field-selection name="time" source="l_time" />
+                <field-selection name="dummy_key" source="l_dummy_key" />
+                <field-selection name="actual_positions" source="l_actual_positions" />
+                <field-selection name="actual_velocities" source="l_actual_velocities" />
+                <field-selection name="desired_positions" source="l_desired_positions" />
+                <field-selection name="desired_velocities" source="l_desired_velocities" />
+                <field-selection name="temperature_left_ankle" source="l_temperature_left_ankle" />
+                <field-selection name="temperature_left_hip_aa" source="l_temperature_left_hip_aa" />
+                <field-selection name="temperature_left_hip_fe" source="l_temperature_left_hip_fe" />
+                <field-selection name="temperature_left_knee" source="r_temperature" />
+              </output>
+          </window-join>
+          <window-join name="joinTemperature_right_ankle" >
+            <join type="leftouter" no-regenerates='true'>
+              <conditions>
+                <fields left="dummy_key" right="dummy_key" />
+              </conditions>
+            </join>
+            <output>
+              <field-selection name="time" source="l_time" />
+              <field-selection name="dummy_key" source="l_dummy_key" />
+              <field-selection name="actual_positions" source="l_actual_positions" />
+              <field-selection name="actual_velocities" source="l_actual_velocities" />
+              <field-selection name="desired_positions" source="l_desired_positions" />
+              <field-selection name="desired_velocities" source="l_desired_velocities" />
+              <field-selection name="temperature_left_ankle" source="l_temperature_left_ankle" />
+              <field-selection name="temperature_left_hip_aa" source="l_temperature_left_hip_aa" />
+              <field-selection name="temperature_left_hip_fe" source="l_temperature_left_hip_fe" />
+              <field-selection name="temperature_left_knee" source="l_temperature_left_knee" />
+              <field-selection name="temperature_right_ankle" source="r_temperature" />
+            </output>
+          </window-join>
+            <window-join name="joinTemperature_right_hip_aa" >
+              <join type="leftouter" no-regenerates='true'>
+                <conditions>
+                  <fields left="dummy_key" right="dummy_key" />
+                </conditions>
+              </join>
+              <output>
+                <field-selection name="time" source="l_time" />
+                <field-selection name="dummy_key" source="l_dummy_key" />
+                <field-selection name="actual_positions" source="l_actual_positions" />
+                <field-selection name="actual_velocities" source="l_actual_velocities" />
+                <field-selection name="desired_positions" source="l_desired_positions" />
+                <field-selection name="desired_velocities" source="l_desired_velocities" />
+                <field-selection name="temperature_left_ankle" source="l_temperature_left_ankle" />
+                <field-selection name="temperature_left_hip_aa" source="l_temperature_left_hip_aa" />
+                <field-selection name="temperature_left_hip_fe" source="l_temperature_left_hip_fe" />
+                <field-selection name="temperature_left_knee" source="l_temperature_left_knee" />
+                <field-selection name="temperature_right_ankle" source="l_temperature_right_ankle" />
+                <field-selection name="temperature_right_hip_aa" source="r_temperature" />
+              </output>
+            </window-join>
+            <window-join name="joinTemperature_right_hip_fe" >
+              <join type="leftouter" no-regenerates='true'>
+                <conditions>
+                  <fields left="dummy_key" right="dummy_key" />
+                </conditions>
+              </join>
+              <output>
+                <field-selection name="time" source="l_time" />
+                <field-selection name="dummy_key" source="l_dummy_key" />
+                <field-selection name="actual_positions" source="l_actual_positions" />
+                <field-selection name="actual_velocities" source="l_actual_velocities" />
+                <field-selection name="desired_positions" source="l_desired_positions" />
+                <field-selection name="desired_velocities" source="l_desired_velocities" />
+                <field-selection name="temperature_left_ankle" source="l_temperature_left_ankle" />
+                <field-selection name="temperature_left_hip_aa" source="l_temperature_left_hip_aa" />
+                <field-selection name="temperature_left_hip_fe" source="l_temperature_left_hip_fe" />
+                <field-selection name="temperature_left_knee" source="l_temperature_left_knee" />
+                <field-selection name="temperature_right_ankle" source="l_temperature_right_ankle" />
+                <field-selection name="temperature_right_hip_aa" source="l_temperature_right_hip_aa" />
+                <field-selection name="temperature_right_hip_fe" source="r_temperature" />
+              </output>
+            </window-join>
+            <window-join name="joinTemperature_right_knee" >
+              <join type="leftouter" no-regenerates='true'>
+                <conditions>
+                  <fields left="dummy_key" right="dummy_key" />
+                </conditions>
+              </join>
+              <output>
+                <field-selection name="time" source="l_time" />
+                <field-selection name="dummy_key" source="l_dummy_key" />
+                <field-selection name="actual_positions" source="l_actual_positions" />
+                <field-selection name="actual_velocities" source="l_actual_velocities" />
+                <field-selection name="desired_positions" source="l_desired_positions" />
+                <field-selection name="desired_velocities" source="l_desired_velocities" />
+                <field-selection name="temperature_left_ankle" source="l_temperature_left_ankle" />
+                <field-selection name="temperature_left_hip_aa" source="l_temperature_left_hip_aa" />
+                <field-selection name="temperature_left_hip_fe" source="l_temperature_left_hip_fe" />
+                <field-selection name="temperature_left_knee" source="l_temperature_left_knee" />
+                <field-selection name="temperature_right_ankle" source="l_temperature_right_ankle" />
+                <field-selection name="temperature_right_hip_aa" source="l_temperature_right_hip_aa" />
+                <field-selection name="temperature_right_hip_fe" source="l_temperature_right_hip_fe" />
+                <field-selection name="temperature_right_knee" source="r_temperature" />
+              </output>
             </window-join>
 <!--            <window-join name="joinWindow3">-->
 <!--              <join type="inner">-->
@@ -195,107 +325,161 @@
                 <field-expr>ESP_aLast(desired_positions)</field-expr>
                 <field-expr>ESP_aLast(desired_velocities)</field-expr>
               </output>
-              <connectors>
-                <connector class="fs" name="sub" type="subscribe">
-                  <properties>
-                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>
-                    <property name="fsname">aggJoint.csv</property>
-                    <property name="fstype">csv</property>
-                    <property name="snapshot">true</property>
-                  </properties>
-                </connector>
-              </connectors>
             </window-aggregate>
-            <window-aggregate name='aggregateIMC'>
+            <window-aggregate name='aggregateTemperature_left_ankle'>
               <schema>
                 <fields>
                   <field key="true" name="dummy_key" type="int64" />
                   <field key="false" name="time" type="stamp" />
-                  <field key="false" name="motor_current" type="array(dbl)" />
-                  <field key="false" name="motor_voltage" type="array(dbl)" />
+                  <field key="false" name="temperature" type="double" />
                 </fields>
               </schema>
               <output>
                 <field-expr>ESP_aLast(time)</field-expr>
-                <field-expr>ESP_aLast(motor_current)</field-expr>
-                <field-expr>ESP_aLast(motor_voltage)</field-expr>
+                <field-expr>ESP_aLast(temperature)</field-expr>
               </output>
-              <connectors>
-                <connector class="fs" name="sub" type="subscribe">
-                  <properties>
-                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>
-                    <property name="fsname">aggIMC.csv</property>
-                    <property name="fstype">csv</property>
-                    <property name="snapshot">true</property>
-                  </properties>
-                </connector>
-              </connectors>
             </window-aggregate>
-<!--            <window-source autogen-key="true" insert-only="true" name="sourceGait">-->
+            <window-aggregate name='aggregateTemperature_left_hip_aa'>
+              <schema>
+                <fields>
+                  <field key="true" name="dummy_key" type="int64" />
+                  <field key="false" name="time" type="stamp" />
+                  <field key="false" name="temperature" type="double" />
+                </fields>
+              </schema>
+              <output>
+                <field-expr>ESP_aLast(time)</field-expr>
+                <field-expr>ESP_aLast(temperature)</field-expr>
+              </output>
+            </window-aggregate>
+            <window-aggregate name='aggregateTemperature_left_hip_fe'>
+              <schema>
+                <fields>
+                  <field key="true" name="dummy_key" type="int64" />
+                  <field key="false" name="time" type="stamp" />
+                  <field key="false" name="temperature" type="double" />
+                </fields>
+              </schema>
+              <output>
+                <field-expr>ESP_aLast(time)</field-expr>
+                <field-expr>ESP_aLast(temperature)</field-expr>
+              </output>
+            </window-aggregate>
+            <window-aggregate name='aggregateTemperature_left_knee'>
+              <schema>
+                <fields>
+                  <field key="true" name="dummy_key" type="int64" />
+                  <field key="false" name="time" type="stamp" />
+                  <field key="false" name="temperature" type="double" />
+                </fields>
+              </schema>
+              <output>
+                <field-expr>ESP_aLast(time)</field-expr>
+                <field-expr>ESP_aLast(temperature)</field-expr>
+              </output>
+          </window-aggregate>
+          <window-aggregate name='aggregateTemperature_right_ankle'>
+            <schema>
+              <fields>
+                <field key="true" name="dummy_key" type="int64" />
+                <field key="false" name="time" type="stamp" />
+                <field key="false" name="temperature" type="double" />
+              </fields>
+            </schema>
+            <output>
+              <field-expr>ESP_aLast(time)</field-expr>
+              <field-expr>ESP_aLast(temperature)</field-expr>
+            </output>
+          </window-aggregate>
+          <window-aggregate name='aggregateTemperature_right_hip_aa'>
+            <schema>
+              <fields>
+                <field key="true" name="dummy_key" type="int64" />
+                <field key="false" name="time" type="stamp" />
+                <field key="false" name="temperature" type="double" />
+              </fields>
+            </schema>
+            <output>
+              <field-expr>ESP_aLast(time)</field-expr>
+              <field-expr>ESP_aLast(temperature)</field-expr>
+            </output>
+          </window-aggregate>
+          <window-aggregate name='aggregateTemperature_right_hip_fe'>
+            <schema>
+              <fields>
+                <field key="true" name="dummy_key" type="int64" />
+                <field key="false" name="time" type="stamp" />
+                <field key="false" name="temperature" type="double" />
+              </fields>
+            </schema>
+            <output>
+              <field-expr>ESP_aLast(time)</field-expr>
+              <field-expr>ESP_aLast(temperature)</field-expr>
+            </output>
+          </window-aggregate>
+          <window-aggregate name='aggregateTemperature_right_knee'>
+            <schema>
+              <fields>
+                <field key="true" name="dummy_key" type="int64" />
+                <field key="false" name="time" type="stamp" />
+                <field key="false" name="temperature" type="double" />
+              </fields>
+            </schema>
+            <output>
+              <field-expr>ESP_aLast(time)</field-expr>
+              <field-expr>ESP_aLast(temperature)</field-expr>
+            </output>
+          </window-aggregate>
+<!--            <window-aggregate name='aggregateIMC'>-->
 <!--              <schema>-->
 <!--                <fields>-->
-<!--                  <field key="true" name="SEQUENCE" type="int64" />-->
-<!--                  <field key="false" name="dummy_key" type="int64" />-->
+<!--                  <field key="true" name="dummy_key" type="int64" />-->
 <!--                  <field key="false" name="time" type="stamp" />-->
-<!--                  <field key="false" name="gait_name" type="string" />-->
-<!--                  <field key="false" name="subgait_name" type="string" />-->
-<!--                  <field key="false" name="version" type="string" />-->
+<!--                  <field key="false" name="motor_current" type="array(dbl)" />-->
+<!--                  <field key="false" name="motor_voltage" type="array(dbl)" />-->
 <!--                </fields>-->
 <!--              </schema>-->
-<!--              <connectors>-->
-<!--                <connector class="fs" name="sub" type="subscribe">-->
-<!--                  <properties>-->
-<!--                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>-->
-<!--                    <property name="fsname">gait.csv</property>-->
-<!--                    <property name="fstype">csv</property>-->
-<!--                    <property name="snapshot">true</property>-->
-<!--                  </properties>-->
-<!--                </connector>-->
-<!--              </connectors>-->
-<!--            </window-source>-->
-            <window-source autogen-key="true" insert-only="true" name="sourceIMC">
+<!--              <output>-->
+<!--                <field-expr>ESP_aLast(time)</field-expr>-->
+<!--                <field-expr>ESP_aLast(motor_current)</field-expr>-->
+<!--                <field-expr>ESP_aLast(motor_voltage)</field-expr>-->
+<!--              </output>-->
+<!--            </window-aggregate>-->
+            <window-source autogen-key="true" insert-only="true" name="sourceGait">
               <schema>
                 <fields>
                   <field key="true" name="SEQUENCE" type="int64" />
                   <field key="false" name="dummy_key" type="int64" />
                   <field key="false" name="time" type="stamp" />
-                  <field key="false" name="motor_current" type="array(dbl)" />
-                  <field key="false" name="motor_voltage" type="array(dbl)" />
+                  <field key="false" name="gait_name" type="string" />
+                  <field key="false" name="subgait_name" type="string" />
+                  <field key="false" name="version" type="string" />
                 </fields>
               </schema>
-              <connectors>
-                <connector class="fs" name="sub" type="subscribe">
-                  <properties>
-                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>
-                    <property name="fsname">IMC.csv</property>
-                    <property name="fstype">csv</property>
-                    <property name="snapshot">true</property>
-                  </properties>
-                </connector>
-              </connectors>
             </window-source>
-<!--            <window-source autogen-key="true" insert-only="true" name="sourceIMU">-->
+<!--            <window-source autogen-key="true" insert-only="true" name="sourceIMC">-->
 <!--              <schema>-->
 <!--                <fields>-->
 <!--                  <field key="true" name="SEQUENCE" type="int64" />-->
 <!--                  <field key="false" name="dummy_key" type="int64" />-->
 <!--                  <field key="false" name="time" type="stamp" />-->
-<!--                  <field key="false" name="orientation" type="array(dbl)" />-->
-<!--                  <field key="false" name="rotational_velocity" type="array(dbl)" />-->
-<!--                  <field key="false" name="linear_acceleration" type="array(dbl)" />-->
+<!--                  <field key="false" name="motor_current" type="array(dbl)" />-->
+<!--                  <field key="false" name="motor_voltage" type="array(dbl)" />-->
 <!--                </fields>-->
 <!--              </schema>-->
-<!--              <connectors>-->
-<!--                <connector class="fs" name="sub" type="subscribe">-->
-<!--                  <properties>-->
-<!--                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>-->
-<!--                    <property name="fsname">imu.csv</property>-->
-<!--                    <property name="fstype">csv</property>-->
-<!--                    <property name="snapshot">true</property>-->
-<!--                  </properties>-->
-<!--                </connector>-->
-<!--              </connectors>-->
 <!--            </window-source>-->
+            <window-source autogen-key="true" insert-only="true" name="sourceIMU">
+              <schema>
+                <fields>
+                  <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
+                  <field key="false" name="time" type="stamp" />
+                  <field key="false" name="orientation" type="array(dbl)" />
+                  <field key="false" name="rotational_velocity" type="array(dbl)" />
+                  <field key="false" name="linear_acceleration" type="array(dbl)" />
+                </fields>
+              </schema>
+            </window-source>
             <window-source autogen-key="true" insert-only="true" name="sourceJoint">
               <schema>
                 <fields>
@@ -308,113 +492,121 @@
                   <field key="false" name="desired_velocities" type="array(dbl)" />
                 </fields>
               </schema>
-              <connectors>
-                <connector class="fs" name="sub" type="subscribe">
-                  <properties>
-                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>
-                    <property name="fsname">Joint.csv</property>
-                    <property name="fstype">csv</property>
-                    <property name="snapshot">true</property>
-                  </properties>
-                </connector>
-              </connectors>
             </window-source>
-<!--            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_left_ankle">-->
-<!--              <schema>-->
-<!--                <fields>-->
-<!--                  <field key="true" name="SEQUENCE" type="int64" />-->
-<!--                  <field key="false" name="dummy_key" type="int64" />-->
-<!--                  <field key="false" name="time" type="stamp" />-->
-<!--                  <field key="false" name="temperature" type="double" />-->
-<!--                </fields>-->
-<!--              </schema>-->
-<!--            </window-source>-->
-<!--            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_left_hip_aa">-->
-<!--              <schema>-->
-<!--                <fields>-->
-<!--                  <field key="true" name="SEQUENCE" type="int64" />-->
-<!--                  <field key="false" name="dummy_key" type="int64" />-->
-<!--                  <field key="false" name="time" type="stamp" />-->
-<!--                  <field key="false" name="temperature" type="double" />-->
-<!--                </fields>-->
-<!--              </schema>-->
-<!--              <connectors>-->
-<!--                <connector class="fs" name="sub" type="subscribe">-->
-<!--                  <properties>-->
-<!--                    <property name="dateformat">%Y-%m-%d %H:%M:%S</property>-->
-<!--                    <property name="fsname">tp.csv</property>-->
-<!--                    <property name="fstype">csv</property>-->
-<!--                    <property name="snapshot">true</property>-->
-<!--                  </properties>-->
-<!--                </connector>-->
-<!--              </connectors>-->
-<!--            </window-source>-->
-<!--            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_left_hip_fe">-->
-<!--              <schema>-->
-<!--                <fields>-->
-<!--                  <field key="true" name="SEQUENCE" type="int64" />-->
-<!--                  <field key="false" name="dummy_key" type="int64" />-->
-<!--                  <field key="false" name="time" type="stamp" />-->
-<!--                  <field key="false" name="temperature" type="double" />-->
-<!--                </fields>-->
-<!--              </schema>-->
-<!--            </window-source>-->
-<!--            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_left_knee">-->
-<!--              <schema>-->
-<!--                <fields>-->
-<!--                  <field key="true" name="SEQUENCE" type="int64" />-->
-<!--                  <field key="false" name="dummy_key" type="int64" />-->
-<!--                  <field key="false" name="time" type="stamp" />-->
-<!--                  <field key="false" name="temperature" type="double" />-->
-<!--                </fields>-->
-<!--              </schema>-->
-<!--            </window-source>-->
-<!--            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_right_ankle">-->
-<!--              <schema>-->
-<!--                <fields>-->
-<!--                  <field key="true" name="SEQUENCE" type="int64" />-->
-<!--                  <field key="false" name="dummy_key" type="int64" />-->
-<!--                  <field key="false" name="time" type="stamp" />-->
-<!--                  <field key="false" name="temperature" type="double" />-->
-<!--                </fields>-->
-<!--              </schema>-->
-<!--            </window-source>-->
-<!--            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_right_hip_aa">-->
-<!--              <schema>-->
-<!--                <fields>-->
-<!--                  <field key="true" name="SEQUENCE" type="int64" />-->
-<!--                  <field key="false" name="dummy_key" type="int64" />-->
-<!--                  <field key="false" name="time" type="stamp" />-->
-<!--                  <field key="false" name="temperature" type="double" />-->
-<!--                </fields>-->
-<!--              </schema>-->
-<!--            </window-source>-->
-<!--            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_right_hip_fe">-->
-<!--              <schema>-->
-<!--                <fields>-->
-<!--                  <field key="true" name="SEQUENCE" type="int64" />-->
-<!--                  <field key="false" name="dummy_key" type="int64" />-->
-<!--                  <field key="false" name="time" type="stamp" />-->
-<!--                  <field key="false" name="temperature" type="double" />-->
-<!--                </fields>-->
-<!--              </schema>-->
-<!--            </window-source>-->
-<!--            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_right_knee">-->
-<!--              <schema>-->
-<!--                <fields>-->
-<!--                  <field key="true" name="SEQUENCE" type="int64" />-->
-<!--                  <field key="false" name="dummy_key" type="int64" />-->
-<!--                  <field key="false" name="time" type="stamp" />-->
-<!--                  <field key="false" name="temperature" type="double" />-->
-<!--                </fields>-->
-<!--              </schema>-->
-<!--            </window-source>-->
+            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_left_ankle">
+              <schema>
+                <fields>
+                  <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
+                  <field key="false" name="time" type="stamp" />
+                  <field key="false" name="temperature" type="double" />
+                </fields>
+              </schema>
+            </window-source>
+            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_left_hip_aa">
+              <schema>
+                <fields>
+                  <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
+                  <field key="false" name="time" type="stamp" />
+                  <field key="false" name="temperature" type="double" />
+                </fields>
+              </schema>
+            </window-source>
+            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_left_hip_fe">
+              <schema>
+                <fields>
+                  <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
+                  <field key="false" name="time" type="stamp" />
+                  <field key="false" name="temperature" type="double" />
+                </fields>
+              </schema>
+            </window-source>
+            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_left_knee">
+              <schema>
+                <fields>
+                  <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
+                  <field key="false" name="time" type="stamp" />
+                  <field key="false" name="temperature" type="double" />
+                </fields>
+              </schema>
+            </window-source>
+            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_right_ankle">
+              <schema>
+                <fields>
+                  <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
+                  <field key="false" name="time" type="stamp" />
+                  <field key="false" name="temperature" type="double" />
+                </fields>
+              </schema>
+            </window-source>
+            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_right_hip_aa">
+              <schema>
+                <fields>
+                  <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
+                  <field key="false" name="time" type="stamp" />
+                  <field key="false" name="temperature" type="double" />
+                </fields>
+              </schema>
+            </window-source>
+            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_right_hip_fe">
+              <schema>
+                <fields>
+                  <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
+                  <field key="false" name="time" type="stamp" />
+                  <field key="false" name="temperature" type="double" />
+                </fields>
+              </schema>
+            </window-source>
+            <window-source autogen-key="true" insert-only="true" name="sourceTemperature_right_knee">
+              <schema>
+                <fields>
+                  <field key="true" name="SEQUENCE" type="int64" />
+                  <field key="false" name="dummy_key" type="int64" />
+                  <field key="false" name="time" type="stamp" />
+                  <field key="false" name="temperature" type="double" />
+                </fields>
+              </schema>
+            </window-source>
           </windows>
           <edges>
-<!--            <edge source="sourceJoint" target="joinWindow" />-->
-            <edge source="sourceIMC" target="aggregateIMC" />
-            <edge role="left" source="sourceJoint" target="joinWindow" />
-            <edge role="right" source="aggregateIMC" target="joinWindow" />
+<!--            <edge source="sourceIMC" target="aggregateIMC" />-->
+            <edge source="sourceTemperature_left_ankle" target="aggregateTemperature_left_ankle" />
+            <edge source="sourceTemperature_left_hip_fe" target="aggregateTemperature_left_hip_fe" />
+            <edge source="sourceTemperature_left_hip_aa" target="aggregateTemperature_left_hip_aa" />
+            <edge source="sourceTemperature_left_knee" target="aggregateTemperature_left_knee" />
+            <edge source="sourceTemperature_right_ankle" target="aggregateTemperature_right_ankle" />
+            <edge source="sourceTemperature_right_hip_fe" target="aggregateTemperature_right_hip_fe" />
+            <edge source="sourceTemperature_right_hip_aa" target="aggregateTemperature_right_hip_aa" />
+            <edge source="sourceTemperature_right_knee" target="aggregateTemperature_right_knee" />
+
+            <edge role="left" source="sourceJoint" target="joinTemperature_left_ankle" />
+            <edge role="right" source="aggregateTemperature_left_ankle" target="joinTemperature_left_ankle" />
+            <edge role="left" source="joinTemperature_left_ankle" target="joinTemperature_left_hip_aa" />
+            <edge role="right" source="aggregateTemperature_left_hip_aa" target="joinTemperature_left_hip_aa" />
+            <edge role="left" source="joinTemperature_left_hip_aa" target="joinTemperature_left_hip_fe" />
+            <edge role="right" source="aggregateTemperature_left_hip_fe" target="joinTemperature_left_hip_fe" />
+            <edge role="left" source="joinTemperature_left_hip_fe" target="joinTemperature_left_knee" />
+            <edge role="right" source="aggregateTemperature_left_knee" target="joinTemperature_left_knee" />
+            <edge role="left" source="joinTemperature_left_knee" target="joinTemperature_right_ankle" />
+            <edge role="right" source="aggregateTemperature_right_ankle" target="joinTemperature_right_ankle" />
+            <edge role="left" source="joinTemperature_right_ankle" target="joinTemperature_right_hip_aa" />
+            <edge role="right" source="aggregateTemperature_right_hip_aa" target="joinTemperature_right_hip_aa" />
+            <edge role="left" source="joinTemperature_right_hip_aa" target="joinTemperature_right_hip_fe" />
+            <edge role="right" source="aggregateTemperature_right_hip_fe" target="joinTemperature_right_hip_fe" />
+            <edge role="left" source="joinTemperature_right_hip_fe" target="joinTemperature_right_knee" />
+            <edge role="right" source="aggregateTemperature_right_knee" target="joinTemperature_right_knee" />
+
+
+
+
+
+
 <!--            <edge role="left" source="sourceTemperature_left_ankle" target="joinTemperature_ankle" />-->
 <!--            <edge role="right" source="sourceTemperature_right_ankle" target="joinTemperature_ankle" />-->
 <!--            <edge role="left" source="sourceTemperature_left_hip_aa" target="joinTemperature_hip_aa" />-->
