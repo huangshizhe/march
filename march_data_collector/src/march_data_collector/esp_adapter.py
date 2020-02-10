@@ -62,17 +62,17 @@ class ESPAdapter:
 
         self.source_windows_esp = set(convert_stringv(stringv, True))
 
-        for joint in joint_names:
-            self.configure_source('sourceTemperature_' + joint, '/march/temperature/', Temperature,
-                                  self.temperature_callback)
+        # for joint in joint_names:
+        #     self.configure_source('sourceTemperature_' + joint, '/march/temperature/', Temperature,
+        #                           self.temperature_callback)
 
         self.configure_source('sourceJoint', '/march/controller/trajectory/state', JointTrajectoryControllerState,
                               self.trajectory_state_callback)
-        self.configure_source('sourceIMU', '/march/imu', Imu, self.imu_callback)
+        # self.configure_source('sourceIMU', '/march/imu', Imu, self.imu_callback)
 
         self.configure_source('sourceIMC', '/march/imc_states', ImcErrorState, self.imc_state_callback)
         # self.configure_source('sourceGait', '/march/gait/schedule/goal', GaitNameActionGoal, self.gait_callback)
-        self.configure_source('sourceCom', '/march/com_marker', Marker, self.com_callback)
+        # self.configure_source('sourceCom', '/march/com_marker', Marker, self.com_callback)
 
 
     def pub_err_cb_func(self, failure, code, _):
